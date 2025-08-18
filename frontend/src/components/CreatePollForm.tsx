@@ -263,55 +263,16 @@ const CreatePollForm: React.FC = () => {
         />
       </div>
       <div className="form-group">
-        <label>Options Type:</label>
-        <select
-          value={optionsType}
-          onChange={e => setOptionsType(e.target.value as "text" | "UHRP" | "UHRPlink")}
-        >
-          <option value="text">Text</option>
-          <option value="UHRP">UHRP (Upload Image)</option>
-          <option value="UHRPlink">UHRP Link</option>
-        </select>
+        <label>Options:</label>
       </div>
       {options.map((option, index) => (
         <div className="form-group" key={index}>
-          <label>
-            {`Option ${index + 1} (${
-              optionsType === "text"
-                ? "Text"
-                : optionsType === "UHRP"
-                ? "Image Upload"
-                : "UHRP Link"
-            }) :`}
-          </label>
-          {optionsType === "text" ? (
             <input
               type="text"
               value={option.value}
               onChange={e => handleOptionValueChange(index, e.target.value)}
               required
             />
-          ) : optionsType === "UHRPlink" ? (
-            <input
-              type="text"               
-              placeholder="XUUVZqvzYskUvEXAMPLE-UHRPoAUojQcxDr6hTUwEz1vPLdvc64z"
-              value={option.value}
-              onChange={e => handleOptionValueChange(index, e.target.value)}
-              required
-            />
-          ) : (
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={e => handleOptionFileChange(index, e)}
-                required
-              />
-              {optionFiles[index] && (
-                <p style={{ color: "black" }}>Selected file: {optionFiles[index]?.name}</p>
-              )}
-            </div>
-          )}
         </div>
       ))}
       
