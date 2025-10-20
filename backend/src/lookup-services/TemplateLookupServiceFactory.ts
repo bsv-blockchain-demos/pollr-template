@@ -7,9 +7,9 @@ import {
   AdmissionMode,
   SpendNotificationMode,
   OutputAdmittedByTopic,
-  OutputSpent
+  OutputSpent,
 } from '@bsv/overlay'
-import { TemplateStorage } from './TemplateStorage.js'
+import { TemplateStorage } from './TemplateStorage'
 import { Db } from 'mongodb'
 
 /**
