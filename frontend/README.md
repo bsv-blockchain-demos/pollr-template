@@ -1,54 +1,50 @@
-# React + TypeScript + Vite
+# Pollr Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React interface for the Pollr development template. It provides poll forms and navigation while leaving the BSV wallet and overlay operations as implementation exercises.
 
-Currently, two official plugins are available:
+See the [project README](../README.md) for the backend components and implementation plan.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run locally
 
-## Expanding the ESLint configuration
+Use Node.js 22 and npm. From the repository root:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+cd frontend
+npm ci
+npm run dev -- --host 127.0.0.1
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open the URL printed by Vite, normally `http://localhost:5173`. The interface detects MetaNet Client and requests wallet authentication. No frontend environment variables are currently read by the application.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Included screens
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+| Route | Purpose |
+| --- | --- |
+| `/` | Create a poll with two to ten text options. |
+| `/Active-polls` | Display active polls. |
+| `/MyPolls` | Display the current user's polls. |
+| `/CompletedPolls` | Display completed polls. |
+| `/poll/:pollId` | Display poll details and voting controls. |
+
+These screens call functions in [PollActions.ts](src/utils/PollActions.ts) that currently throw `Not implemented` errors. Connecting a wallet does not make creation, voting, lookup or closing polls functional.
+
+## Implementation starting points
+
+- [PollActions.ts](src/utils/PollActions.ts): guided TODOs for token creation, wallet actions, overlay queries and results.
+- [CreatePollForm.tsx](src/components/CreatePollForm.tsx): poll inputs and submission.
+- [PollDetails.tsx](src/components/PollDetails.tsx): voting and detail view.
+- [App.tsx](src/App.tsx): routes, navigation and wallet detection.
+
+The [backend](../backend/src/) must implement the corresponding poll topic and lookup behaviour. The checked-in [deployment configuration](../deployment-info.json) still uses the generic `tm_template` and `ls_template` identifiers.
+
+## Build status
+
+```sh
+npm run build
+npm run lint
+npm run preview -- --host 127.0.0.1
 ```
+
+The build currently fails during TypeScript checking because unimplemented query functions infer `void` where components expect arrays. Complete those functions and their return types before using production builds.
+
+A successful build writes `build/`, as specified in [vite.config.ts](vite.config.ts). Preview requires a successful build. No frontend test script is defined.
