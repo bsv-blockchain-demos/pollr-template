@@ -58,4 +58,4 @@ The root and backend `test` scripts are placeholders that exit with an error. No
 
 ## Licence
 
-The package manifests declare ISC, but no licence file is included in the repository.
+**Declared licence: ISC.** The [root](package.json), [backend](backend/package.json) and [frontend](frontend/package.json) package manifests all declare ISC. No standalone licence file is included in this repository.

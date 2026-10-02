@@ -48,3 +48,7 @@ npm run preview -- --host 127.0.0.1
 The build currently fails during TypeScript checking because unimplemented query functions infer `void` where components expect arrays. Complete those functions and their return types before using production builds.
 
 A successful build writes `build/`, as specified in [vite.config.ts](vite.config.ts). Preview requires a successful build. No frontend test script is defined.
+
+## Licence
+
+**Declared licence: ISC.** See [package.json](package.json). The root and backend manifests also declare ISC; see the [repository licence section](../README.md#licence). No standalone licence file is included in this repository.
